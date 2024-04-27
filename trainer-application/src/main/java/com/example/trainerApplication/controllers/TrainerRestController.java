@@ -1,45 +1,60 @@
 package com.example.trainerApplication.controllers;
 
 
-import com.example.trainerApplication.models.User;
-import org.springframework.http.ResponseEntity;
+import com.example.trainerApplication.models.PersonalTrainer;
+import com.example.trainerApplication.models.StrengthAndConditioningCoach;
+import com.example.trainerApplication.models.Trainer;
 import org.springframework.web.bind.annotation.*;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 public class TrainerRestController {
 
-    @GetMapping("trainer")
-    public String getTrainer()
+
+    /**
+     * @return Returns just a Test String
+     */
+    @GetMapping("Randomtrainer")
+    public String getRandomTrainer()
     {
         return "Tom";
     }
 
-
-
-    //Use @PathVariable for mandatory data in the URI path.
-    //Use @RequestParam for optional data in the query string or form data.
-    // to retrieve a single resource (like a single user), @PathVariable is appropriate.
-    // But if you're searching or filtering a group of resources (like searching for users by name),
-    // @RequestParam is the way to go.
+    /**
+     * @param id
+     * This method us to retrieve a Trainer by ID, currently just returns the id number since Db has not been set up yet
+     * Note: to retrieve a single resource (like a single user), @PathVariable is appropriate.
+     * @return the long value by id
+     */
     @GetMapping("trainer/{id}")
     public long getTrainerId(@PathVariable long id)
     {
         return id;
     }
 
+
+    /**
+     * @param id
+     * This method us to retrieve a Trainer by name (firstname to be exact) since a Trainer could have the same first name
+     * currently just returns the id number since Database has not been set up yet
+     * Note: if you're searching or filtering a group of resources (like searching for users by name) RequestParam is appropriate
+     * @return a String value of the id
+     */
     @GetMapping("trainerReq")
-    public String getTrainerIdQueryParam(@RequestParam long id)
+    public String getTrainersByNameQueryParam(@RequestParam long id)
     {   // for some reason does not want to return values less than 100
         System.out.println(id);
         return String.valueOf(id);
     }
 
-    @GetMapping("user")
-    public User getRandomUser()
+
+    /**
+     * User will be an interface for both Trainer and Client just here to see if the object goes through as expected
+     * @return
+     */
+    @GetMapping("trainer")
+    public Trainer getRandomUser()
     {
-        User random = new User(1,"Chris");
+        Trainer random = new PersonalTrainer(1,"Chris");
 
         return random;
     }
