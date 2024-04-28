@@ -11,15 +11,6 @@ public class TrainerRestController {
 
 
     /**
-     * @return Returns just a Test String
-     */
-    @GetMapping("Randomtrainer")
-    public String getRandomTrainer()
-    {
-        return "Tom";
-    }
-
-    /**
      * @param id
      * This method us to retrieve a Trainer by ID, currently just returns the id number since Db has not been set up yet
      * Note: to retrieve a single resource (like a single user), @PathVariable is appropriate.

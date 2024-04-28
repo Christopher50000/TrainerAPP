@@ -21,7 +21,7 @@ public abstract class TrainerEntity implements Trainer {
     protected String trainerDescription;
 
     public TrainerEntity(long id, String name) {
-        this.id = id;
+        this.id = id; // remove this
         this.name = name;
     }
 
