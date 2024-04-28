@@ -3,29 +3,24 @@ package com.example.trainerApplication.models;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Data
-@RequiredArgsConstructor
-public class StrengthAndConditioningCoach implements Trainer{
 
-    private long id;
+public class StrengthAndConditioningCoach extends AbstractTrainer{
 
-    private String name;
-
-
-
-    private String typeOfTrainer="Strength and Conditioning Coach";
 
     public StrengthAndConditioningCoach(long id, String name)
     {
-        this.id=id;
-        this.name=name;
-       // this.typeOfTrainer="Strength and Conditioning Coach";
+        super(id,name);
+
+        this.typeOfTrainer="Strength and Conditioning Coach";
+
+        this.trainerDescription="Focuses on improving overall strength, power, and " +
+                "conditioning through structured exercise programs.";
 
     }
-    @Override
-    public String typeOfTrainer()
-    {
-        return  this.typeOfTrainer;
-    };
+
+
+    ;
+
+
 
 }
