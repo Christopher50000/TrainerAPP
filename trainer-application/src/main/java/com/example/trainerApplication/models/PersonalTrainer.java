@@ -1,20 +1,26 @@
 package com.example.trainerApplication.models;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-public class PersonalTrainer extends AbstractTrainer {
+
+@Entity
+@DiscriminatorValue("strength_and_conditioning")
+public class PersonalTrainer extends TrainerEntity {
+
+
 
     public PersonalTrainer(long id, String name)
     {
         super(id,name);
 
-        this.typeOfTrainer="Personal Trainer";
-
-        this.trainerDescription="Provides personalized fitness training tailored to individual goals.";
-
+        setTypeOfTrainer("Personal Trainer");
+        setTrainerDescription("Provides personalized fitness training tailored to individual goals.");
     }
+
 
 
 }

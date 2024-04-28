@@ -1,26 +1,24 @@
 package com.example.trainerApplication.models;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-
-public class StrengthAndConditioningCoach extends AbstractTrainer{
+@Entity
+@DiscriminatorValue("strength_and_conditioning")
+public class StrengthAndConditioningCoach extends TrainerEntity{
 
 
     public StrengthAndConditioningCoach(long id, String name)
     {
         super(id,name);
 
-        this.typeOfTrainer="Strength and Conditioning Coach";
-
-        this.trainerDescription="Focuses on improving overall strength, power, and " +
-                "conditioning through structured exercise programs.";
-
+        setTypeOfTrainer("Strength and Conditioning Coach");
+        setTrainerDescription("Focuses on improving overall strength, power, and " +
+                "conditioning through structured exercise programs.");
     }
 
 
-    ;
-
-
-
 }
+
