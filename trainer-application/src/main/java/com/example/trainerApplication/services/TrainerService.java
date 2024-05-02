@@ -1,7 +1,6 @@
 package com.example.trainerApplication.services;
 
-import com.example.trainerApplication.models.Trainer;
-import com.example.trainerApplication.models.TrainerEntity;
+import com.example.trainerApplication.models.entities.TrainerEntity;
 
 import java.util.List;
 

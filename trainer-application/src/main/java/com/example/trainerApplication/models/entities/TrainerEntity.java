@@ -1,8 +1,7 @@
-package com.example.trainerApplication.models;
+package com.example.trainerApplication.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity

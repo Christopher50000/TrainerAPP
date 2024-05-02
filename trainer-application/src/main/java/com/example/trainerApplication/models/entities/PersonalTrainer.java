@@ -1,10 +1,7 @@
-package com.example.trainerApplication.models;
+package com.example.trainerApplication.models.entities;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 
 @Entity

@@ -1,9 +1,8 @@
-package com.example.trainerApplication.controllers;
+package com.example.trainerApplication.controllers.rest;
 
 
-import com.example.trainerApplication.models.PersonalTrainer;
-import com.example.trainerApplication.models.StrengthAndConditioningCoach;
-import com.example.trainerApplication.models.Trainer;
+import com.example.trainerApplication.models.entities.PersonalTrainer;
+import com.example.trainerApplication.models.entities.Trainer;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

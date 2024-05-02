@@ -1,6 +1,6 @@
 package com.example.trainerApplication.repositories;
 
-import com.example.trainerApplication.models.TrainerEntity;
+import com.example.trainerApplication.models.entities.TrainerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

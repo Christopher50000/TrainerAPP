@@ -1,13 +1,11 @@
-package com.example.trainerApplication.models;
+package com.example.trainerApplication.models.entities;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @DiscriminatorValue("strength_and_conditioning")
-public class StrengthAndConditioningCoach extends TrainerEntity{
+public class StrengthAndConditioningCoach extends TrainerEntity {
 
 
     public StrengthAndConditioningCoach(long id, String name)

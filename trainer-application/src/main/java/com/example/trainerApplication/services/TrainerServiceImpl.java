@@ -1,7 +1,7 @@
 package com.example.trainerApplication.services;
 
 
-import com.example.trainerApplication.models.TrainerEntity;
+import com.example.trainerApplication.models.entities.TrainerEntity;
 import com.example.trainerApplication.repositories.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
