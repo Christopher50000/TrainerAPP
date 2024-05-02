@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @Entity
-@DiscriminatorValue("strength_and_conditioning")
+@DiscriminatorValue("Personal Trainer")
 public class PersonalTrainer extends TrainerEntity {
 
 
