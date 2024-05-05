@@ -4,7 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("strength_and_conditioning")
+@DiscriminatorValue("Strength and Conditioning Coach")
 public class StrengthAndConditioningCoach extends TrainerEntity {
 
 

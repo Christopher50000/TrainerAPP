@@ -3,12 +3,18 @@ package com.example.trainerApplication.controllers.rest;
 
 import com.example.trainerApplication.models.entities.PersonalTrainer;
 import com.example.trainerApplication.models.entities.Trainer;
+import com.example.trainerApplication.models.entities.TrainerEntity;
+import com.example.trainerApplication.services.TrainerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TrainerRestController {
 
-
+    @Autowired
+    TrainerService trainerService;
     /**
      * @param id
      * This method us to retrieve a Trainer by ID, currently just returns the id number since Db has not been set up yet
@@ -49,6 +55,26 @@ public class TrainerRestController {
         return random;
     }
 
+    /**
+     * @param trainer
+     * This method is called when we send a post method to the /createTrainer with VALID input within the PostRequest
+     * mainly just for the name. We also have simple Error handling here but will implement a better way to handle later.
+     * If the TrainerEnity is created we are prompted with Created, if not we are prompted with an Interal_Server_Error
+     * @return ResponseEntitu as a JSON Object for the TrainerEntitu object
+     */
+    @PostMapping("/createTrainer")
+    public ResponseEntity<TrainerEntity> createTrainer(@RequestBody TrainerEntity trainer) {
+
+        //Return to this issue later where we cannot deserialize TrainerEntity due to abstraction may consider using
+        // a simplier way of doing this , for some reason attempts failed each time !!!!!!
+        try {
+            TrainerEntity createdTrainer = trainerService.createTrainer(trainer);
+            return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // Handle exceptions, such as validation errors or database errors
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

@@ -7,8 +7,9 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("Personal Trainer")
 public class PersonalTrainer extends TrainerEntity {
-
-
+    public PersonalTrainer() {
+        // Default constructor
+    }
 
     public PersonalTrainer(long id, String name)
     {

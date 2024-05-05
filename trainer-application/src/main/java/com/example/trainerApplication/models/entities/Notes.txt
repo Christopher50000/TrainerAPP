@@ -1,0 +1,19 @@
+TrainerEntity is an abstract class, it cannot be instantiated directly.
+Abstract classes are meant to be extended by concrete subclasses,
+and instances of abstract classes cannot be created.
+
+when Jackson attempts to deserialize the JSON payload into an
+instance of TrainerEntity, it fails because it cannot directly
+instantiate an abstract class.
+
+TrainerEntity to instantiate during deserialization.
+This can be achieved using a custom deserializer.
+
+By implementing a custom deserializer, we can inspect the
+discriminator property in the JSON payload (in this case, trainer_type) and determine the appropriate concrete
+ subclass of TrainerEntity to instantiate based on the value of the discriminator property.
+
+ annotated the TrainerEntity class with @JsonDeserialize(using = TrainerEntityDeserializer.class),
+  Jackson will be able to correctly
+ instantiate the appropriate concrete subclass of TrainerEntity during deserialization,
+  resolving the InvalidDefinitionException issue.
