@@ -13,24 +13,25 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "trainer_type")
+@JsonDeserialize(using = TrainerEntityDeserializer.class)
 public abstract class TrainerEntity implements Trainer, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
      // adding bean validation
-    protected String name;
+    private String name;
 
     @JsonProperty("trainer_type")
-    protected String typeOfTrainer;
+    private String typeOfTrainer;
 
-    protected String trainerDescription;
+    private String trainerDescription;
 
-    public TrainerEntity(long id, String name) {
-        this.id = id; // remove this
+    public TrainerEntity(String name) {
+        //this.id = id; // remove this
         this.name = name;
     }
 

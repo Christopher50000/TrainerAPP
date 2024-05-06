@@ -20,6 +20,14 @@ public class TrainerServiceImpl implements TrainerService {
     }
 
     @Override
+    public TrainerEntity getTrainerById(long id)
+    {
+       Optional<TrainerEntity> trainerById= trainerRepository.findById(id);
+
+       return trainerById.get();
+    }
+
+    @Override
     public List<TrainerEntity> getAllTrainers() {
         return trainerRepository.findAll();
     }

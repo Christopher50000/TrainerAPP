@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class TrainerRestController {
 
@@ -22,9 +24,9 @@ public class TrainerRestController {
      * @return the long value by id
      */
     @GetMapping("trainer/{id}")
-    public long getTrainerId(@PathVariable long id)
+    public ResponseEntity<TrainerEntity> getTrainerById(@PathVariable long id)
     {
-        return id;
+        return new ResponseEntity<>(trainerService.getTrainerById(id), HttpStatus.FOUND);
     }
 
 
@@ -50,7 +52,7 @@ public class TrainerRestController {
     @GetMapping("trainer")
     public Trainer getRandomUser()
     {
-        Trainer random = new PersonalTrainer(1,"Chris");
+        Trainer random = new PersonalTrainer("Chris");
 
         return random;
     }
@@ -71,6 +73,8 @@ public class TrainerRestController {
             TrainerEntity createdTrainer = trainerService.createTrainer(trainer);
             return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(trainer.getClass());
+            System.out.println("HI");
             // Handle exceptions, such as validation errors or database errors
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
