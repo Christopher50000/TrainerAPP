@@ -55,9 +55,9 @@ public TrainerEntity deserialize(JsonParser jp, DeserializationContext ctxt)
     System.out.println(trainerType);
     if ("Personal Trainer".equals(trainerType)) {
         System.out.println("I AM PERSONAL TRAINER");
-        return new PersonalTrainer(node.get("name").asText());
+        return new PersonalTrainer(node.get("first_name").asText(),(node.get("last_name").asText()));
     } else if ("Strength and Conditioning Coach".equals(trainerType)) {
-        return new StrengthAndConditioningCoach(node.get("name").asText());
+        return new StrengthAndConditioningCoach(node.get("first_name").asText(),(node.get("last_name").asText()));
     }
 
     throw new IllegalArgumentException("Unsupported trainer type: " + trainerType);

@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.io.Serializable;
-
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
+//@MappedSuperclass // this will create a table per sub class with similar fields will consider for later
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "trainer_type")
+@DiscriminatorColumn(name = "trainerType", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
 @JsonDeserialize(using = TrainerEntityDeserializer.class)
 public abstract class TrainerEntity implements Trainer, Serializable {
 
@@ -23,17 +23,24 @@ public abstract class TrainerEntity implements Trainer, Serializable {
     private long id;
 
      // adding bean validation
-    private String name;
+    @Column(name="first_name")
+    private String firstName;
 
-    @JsonProperty("trainer_type")
-    private String typeOfTrainer;
+    @Column(name="last_name")
+    private String lastName;
 
+    @Column(name = "trainer_description")
     private String trainerDescription;
 
-    public TrainerEntity(String name) {
+
+
+    public TrainerEntity(String firstName,String lastName) {
         //this.id = id; // remove this
-        this.name = name;
+        this.firstName =firstName;
+        this.lastName=lastName;
     }
 
-    // Getters and setters
+
+    // Need to create .equals and .hashcode to prevent already created possibly ?
+    // or use that in the controller or realy service
 }

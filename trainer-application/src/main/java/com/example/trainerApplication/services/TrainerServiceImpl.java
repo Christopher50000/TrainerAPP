@@ -38,11 +38,12 @@ public class TrainerServiceImpl implements TrainerService {
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
         TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(()-> new RuntimeException("Trainer not found"));
 
-        trainerEntity.setName(trainer.getName());
+        trainerEntity.setFirstName(trainer.getFirstName());
+        trainerEntity.setLastName(trainer.getLastName());
 
         //Note: May need to set up some sort of condiition so that if the type of trainer is set a default value is set
         // for the Trainer Description
-        trainerEntity.setTypeOfTrainer((trainer.getTypeOfTrainer()));
+
         trainerEntity.setTrainerDescription((trainer.getTrainerDescription()));
 
         return trainerRepository.save(trainerEntity);
@@ -66,4 +67,6 @@ public class TrainerServiceImpl implements TrainerService {
 
 
     }
+
+
 }
