@@ -3,6 +3,7 @@ package com.example.trainerApplication.models.Deserializer;
 import com.example.trainerApplication.models.entities.PersonalTrainer;
 import com.example.trainerApplication.models.entities.StrengthAndConditioningCoach;
 import com.example.trainerApplication.models.entities.TrainerEntity;
+import com.example.trainerApplication.models.entityFactories.TrainerFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -31,7 +32,7 @@ public class TrainerEntityDeserializer extends StdDeserializer<TrainerEntity> {
         super(vc);
     }
 
-//    @Override
+    //    @Override
 //    public TrainerEntity deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 //        ObjectMapper mapper = (ObjectMapper) jp.getCodec(); // Get ObjectMapper from JsonParser
 //        JsonNode node = jp.readValueAsTree(); // Read the JSON node directly
@@ -47,19 +48,16 @@ public class TrainerEntityDeserializer extends StdDeserializer<TrainerEntity> {
 //
 //        throw new IOException("Unrecognized trainer type: " + trainerType);
 //    }
-@Override
-public TrainerEntity deserialize(JsonParser jp, DeserializationContext ctxt)
-        throws IOException {
-    JsonNode node = jp.getCodec().readTree(jp);
-    String trainerType = node.get("trainer_type").asText();
-    System.out.println(trainerType);
-    if ("Personal Trainer".equals(trainerType)) {
-        System.out.println("I AM PERSONAL TRAINER");
-        return new PersonalTrainer(node.get("first_name").asText(),(node.get("last_name").asText()));
-    } else if ("Strength and Conditioning Coach".equals(trainerType)) {
-        return new StrengthAndConditioningCoach(node.get("first_name").asText(),(node.get("last_name").asText()));
-    }
+    @Override
+    public TrainerEntity deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException {
+        JsonNode node = jp.getCodec().readTree(jp);
+        System.out.println(node);
+        String trainerType = node.get("trainerType").asText();
+        System.out.println(trainerType);
 
-    throw new IllegalArgumentException("Unsupported trainer type: " + trainerType);
-}
+        TrainerFactory factory = new TrainerFactory();
+
+        return factory.create(node);
+    }
 }
