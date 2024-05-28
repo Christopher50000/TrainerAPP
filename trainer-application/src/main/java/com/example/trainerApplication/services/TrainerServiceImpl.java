@@ -44,7 +44,7 @@ public class TrainerServiceImpl implements TrainerService {
         //Note: May need to set up some sort of condiition so that if the type of trainer is set a default value is set
         // for the Trainer Description
 
-        trainerEntity.setTrainerDescription((trainer.getTrainerDescription()));
+        trainerEntity.setTrainerType((trainer.getTrainerType()));
 
         return trainerRepository.save(trainerEntity);
     }

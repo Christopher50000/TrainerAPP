@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 //@MappedSuperclass // this will create a table per sub class with similar fields will consider for later
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "trainerType", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
+@DiscriminatorColumn(name = "trainer_type_id", discriminatorType = DiscriminatorType.INTEGER) // may need to get rid of this
 @JsonDeserialize(using = TrainerEntityDeserializer.class)
 public abstract class TrainerEntity implements Trainer, Serializable {
 
@@ -29,8 +29,12 @@ public abstract class TrainerEntity implements Trainer, Serializable {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name = "trainer_description")
-    private String trainerDescription;
+
+    // each row for the Trainer Entity Table refernces a single row in the TrainerType Table
+    // Many of the Trainer Entities references a one row in the TrainerType Table
+    @ManyToOne
+    @JoinColumn(name="trainer_type", referencedColumnName = "id")
+    private TrainerType trainerType;
 
 
 

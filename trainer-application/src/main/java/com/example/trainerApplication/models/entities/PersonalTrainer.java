@@ -20,7 +20,7 @@ public class PersonalTrainer extends TrainerEntity {
         super(fname,lname);
         //setTypeOfTrainer("Personal Trainer");
 
-        this.setTrainerDescription("Provides personalized fitness training tailored to individual goals.");
+
         //this.setTypeOfTrainer("Personal Trainer");
 
     }

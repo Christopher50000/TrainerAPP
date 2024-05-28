@@ -51,12 +51,12 @@ public class TrainerEntityDeserializer extends StdDeserializer<TrainerEntity> {
 public TrainerEntity deserialize(JsonParser jp, DeserializationContext ctxt)
         throws IOException {
     JsonNode node = jp.getCodec().readTree(jp);
-    String trainerType = node.get("trainer_type").asText();
+    String trainerType = node.get("trainer_type_id").asText();
     System.out.println(trainerType);
-    if ("Personal Trainer".equals(trainerType)) {
+    if ("1".equals(trainerType)) {
         System.out.println("I AM PERSONAL TRAINER");
         return new PersonalTrainer(node.get("first_name").asText(),(node.get("last_name").asText()));
-    } else if ("Strength and Conditioning Coach".equals(trainerType)) {
+    } else if ("2".equals(trainerType)) {
         return new StrengthAndConditioningCoach(node.get("first_name").asText(),(node.get("last_name").asText()));
     }
 

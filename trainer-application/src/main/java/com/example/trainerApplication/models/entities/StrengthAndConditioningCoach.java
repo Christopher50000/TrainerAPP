@@ -15,9 +15,6 @@ public class StrengthAndConditioningCoach extends TrainerEntity {
         super(fname,lname);
 
         //setTypeOfTrainer("Strength and Conditioning Coach");
-        this.setTrainerDescription("Focuses on improving overall strength, power, and " +
-                "conditioning through structured exercise programs.");
-
 
         //this.setTypeOfTrainer("Strength and Conditioning Coach");
     }
