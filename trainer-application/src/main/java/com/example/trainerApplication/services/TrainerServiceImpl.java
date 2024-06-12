@@ -1,11 +1,11 @@
 package com.example.trainerApplication.services;
 
 
-import com.example.trainerApplication.models.entities.PersonalTrainer;
+import com.example.trainerApplication.models.Request.TrainerRequest;
 import com.example.trainerApplication.models.entities.TrainerEntity;
-import com.example.trainerApplication.models.entities.TrainerType;
+
+import com.example.trainerApplication.models.entityFactories.TrainerFactory;
 import com.example.trainerApplication.repositories.TrainerRepository;
-import com.example.trainerApplication.repositories.TrainerTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +17,15 @@ public class TrainerServiceImpl implements TrainerService {
     @Autowired
     private TrainerRepository trainerRepository;
 
-    @Autowired
-    private TrainerTypeRepository trainerTypeRepository;
-
 
 
     @Override
-    public TrainerEntity createTrainer(TrainerEntity trainer) {
+    public TrainerEntity createTrainer(TrainerRequest trainerRequest) {
 
-        //System.out.println(trainerTypeRepository.findByTypeName("Personal Trainer"));
-//        setTrainerType(trainer);
+        TrainerFactory trainerFactory= new TrainerFactory();
 
-        return trainerRepository.save(trainer);
+        TrainerEntity trainerCreated= trainerFactory.create(trainerRequest);
+        return trainerRepository.save(trainerCreated);
     }
 
     @Override

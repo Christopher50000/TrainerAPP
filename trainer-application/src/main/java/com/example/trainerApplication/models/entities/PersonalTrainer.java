@@ -18,11 +18,8 @@ public class PersonalTrainer extends TrainerEntity {
     public PersonalTrainer(String fname,String lname)//,//TrainerType trainerType)
     {
 
-        super(fname,lname);//trainerType);
-        //setTypeOfTrainer("Personal Trainer");
+        super(fname,lname);
 
-//        this.setTrainerDescription("Provides personalized fitness training tailored to individual goals.");
-        //this.setTypeOfTrainer("Personal Trainer");
         this.Certified="YES";
     }
 

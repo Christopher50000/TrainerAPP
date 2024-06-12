@@ -1,14 +1,10 @@
 package com.example.trainerApplication.models.entities;
 
-import com.example.trainerApplication.models.Deserializer.TrainerEntityDeserializer;
-import com.example.trainerApplication.repositories.TrainerTypeRepository;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.io.Serializable;
 @Entity
@@ -16,8 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 //@MappedSuperclass // this will create a table per sub class with similar fields will consider for later
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "trainerType", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
-//@JsonDeserialize(using = TrainerEntityDeserializer.class)
+@DiscriminatorColumn(name = "trainer_type", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
 public abstract class TrainerEntity implements Trainer, Serializable {
 
     @Id
@@ -31,14 +26,20 @@ public abstract class TrainerEntity implements Trainer, Serializable {
     @Column(name="last_name")
     private String lastName;
 
-//    @ManyToOne
-//    @JoinColumn(name = "trainer_type_id",referencedColumnName = "id")
-//    private TrainerType trainerType;
+//    @Transient // FIELD DOES NOT PERSIST IN DB
+//    private String trainerType;
+//
+////    @PostLoad to set the value of the transient field from the discriminator column.
+//    // USED TO CUSTOMIZE LOGIC SUCH AS INTILAIZING NONPERSISTENT FIELDS  OR PERFORMING CALCULATIONS
+//    @PostLoad
+//    public void setDiscriminator() {
+//        this.trainerType = this.getClass().getAnnotation(DiscriminatorValue.class).value();
+//    }
 
 
 
     public TrainerEntity(String firstName,String lastName) {
-        //this.id = id; // remove this
+
         this.firstName =firstName;
         this.lastName=lastName;
 

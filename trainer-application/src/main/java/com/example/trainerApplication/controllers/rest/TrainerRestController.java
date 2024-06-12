@@ -1,6 +1,7 @@
 package com.example.trainerApplication.controllers.rest;
 
 
+import com.example.trainerApplication.models.Request.TrainerRequest;
 import com.example.trainerApplication.models.entities.PersonalTrainer;
 import com.example.trainerApplication.models.entities.Trainer;
 import com.example.trainerApplication.models.entities.TrainerEntity;
@@ -44,29 +45,24 @@ public class TrainerRestController {
     }
 
 
-    /**
-     * User will be an interface for both Trainer and Client just here to see if the object goes through as expected
-     * @return
-     */
 
     /**
-     * @param trainer This method is called when we send a post method to the /createTrainer with VALID input within the PostRequest
+     * @param trainerRequest This method is called when we send a post method to the /createTrainer with VALID input within the PostRequest
      *                mainly just for the name. We also have simple Error handling here but will implement a better way to handle later.
-     *                If the TrainerEnity is created we are prompted with Created, if not we are prompted with an Interal_Server_Error
+     *                If the TrainerRequest is created we are prompted with Created, if not we are prompted with an Interal_Server_Error
      * @return ResponseEntitu as a JSON Object for the TrainerEntitu object
      */
     @PostMapping("/createTrainer")
-    public ResponseEntity<TrainerEntity> createTrainer(@RequestBody TrainerEntity trainer) {
-        System.out.println(trainer);
+    public ResponseEntity<TrainerEntity> createTrainer(@RequestBody TrainerRequest trainerRequest) {
 
         //Return to this issue later where we cannot deserialize TrainerEntity due to abstraction may consider using
         // a simplier way of doing this , for some reason attempts failed each time !!!!!!
         try {
-            TrainerEntity createdTrainer = trainerService.createTrainer(trainer);
+            TrainerEntity createdTrainer = trainerService.createTrainer(trainerRequest);
             System.out.println(createdTrainer);
             return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println(trainer.getClass());
+
             System.out.println("HI");
             // Handle exceptions, such as validation errors or database errors
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -79,13 +75,6 @@ public class TrainerRestController {
         System.out.println(trainers);
         return new ResponseEntity<>(trainers, HttpStatus.OK);
     }
-
-//    @GetMapping("/{type}")
-//    public ResponseEntity<List<TrainerEntity>> getAllTrainersByType(@PathVariable String type) {
-//        List<TrainerEntity> trainers = trainerService.getAllTrainersByType(type);
-//        return new ResponseEntity<>(trainers, HttpStatus.OK);
-//
-//    }
 }
 
 
