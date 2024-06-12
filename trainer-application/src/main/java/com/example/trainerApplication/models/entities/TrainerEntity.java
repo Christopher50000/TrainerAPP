@@ -1,12 +1,14 @@
 package com.example.trainerApplication.models.entities;
 
 import com.example.trainerApplication.models.Deserializer.TrainerEntityDeserializer;
+import com.example.trainerApplication.repositories.TrainerTypeRepository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 @Entity
@@ -15,7 +17,7 @@ import java.io.Serializable;
 //@MappedSuperclass // this will create a table per sub class with similar fields will consider for later
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "trainerType", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
-@JsonDeserialize(using = TrainerEntityDeserializer.class)
+//@JsonDeserialize(using = TrainerEntityDeserializer.class)
 public abstract class TrainerEntity implements Trainer, Serializable {
 
     @Id
@@ -29,8 +31,9 @@ public abstract class TrainerEntity implements Trainer, Serializable {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name = "trainer_description")
-    private String trainerDescription;
+//    @ManyToOne
+//    @JoinColumn(name = "trainer_type_id",referencedColumnName = "id")
+//    private TrainerType trainerType;
 
 
 
@@ -38,6 +41,9 @@ public abstract class TrainerEntity implements Trainer, Serializable {
         //this.id = id; // remove this
         this.firstName =firstName;
         this.lastName=lastName;
+
+
+
     }
 
 

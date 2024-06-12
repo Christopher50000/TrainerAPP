@@ -1,8 +1,11 @@
 package com.example.trainerApplication.services;
 
 
+import com.example.trainerApplication.models.entities.PersonalTrainer;
 import com.example.trainerApplication.models.entities.TrainerEntity;
+import com.example.trainerApplication.models.entities.TrainerType;
 import com.example.trainerApplication.repositories.TrainerRepository;
+import com.example.trainerApplication.repositories.TrainerTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,17 @@ public class TrainerServiceImpl implements TrainerService {
     @Autowired
     private TrainerRepository trainerRepository;
 
+    @Autowired
+    private TrainerTypeRepository trainerTypeRepository;
+
+
+
     @Override
     public TrainerEntity createTrainer(TrainerEntity trainer) {
+
+        //System.out.println(trainerTypeRepository.findByTypeName("Personal Trainer"));
+//        setTrainerType(trainer);
+
         return trainerRepository.save(trainer);
     }
 
@@ -43,8 +55,8 @@ public class TrainerServiceImpl implements TrainerService {
 
         //Note: May need to set up some sort of condiition so that if the type of trainer is set a default value is set
         // for the Trainer Description
-
-        trainerEntity.setTrainerDescription((trainer.getTrainerDescription()));
+//        System.out.println(trainerEntity.getTrainerType());
+//        trainerEntity.setTrainerType(trainer.getTrainerType());
 
         return trainerRepository.save(trainerEntity);
     }
@@ -67,6 +79,17 @@ public class TrainerServiceImpl implements TrainerService {
 
 
     }
+
+//    private void setTrainerType(TrainerEntity trainer)
+//    {
+//
+//
+//       TrainerType found = trainerTypeRepository.findBy()
+//
+//        // Save the TrainerEntity with the newly created TrainerType
+//
+//
+//    }
 
 
 }

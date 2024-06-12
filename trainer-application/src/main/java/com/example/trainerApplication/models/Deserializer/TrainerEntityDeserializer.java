@@ -53,7 +53,7 @@ public class TrainerEntityDeserializer extends StdDeserializer<TrainerEntity> {
             throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);
         System.out.println(node);
-        String trainerType = node.get("trainerType").asText();
+        String trainerType = node.get("trainer_type").asText();
         System.out.println(trainerType);
 
         TrainerFactory factory = new TrainerFactory();

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Table(name ="trainer_type")
 @NoArgsConstructor
 @Data
-public class TrainerType {
+public class TrainerType  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,6 +16,6 @@ public class TrainerType {
     @Column(name = "type_name")
     private String typeName;
 
-    @Column(name = "description")
+    @Column(name = "trainer_description")
     private String description;
 }

@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Table(name="Strength And Conditioning Coaches")
 public class StrengthAndConditioningCoach extends TrainerEntity {
 
-    public StrengthAndConditioningCoach(String fname,String lname)
+    public StrengthAndConditioningCoach(String fname,String lname)//TrainerType trainerType)
     {
 
-        super(fname,lname);
+        super(fname,lname);//trainerType);
 
         //setTypeOfTrainer("Strength and Conditioning Coach");
-        this.setTrainerDescription("Focuses on improving overall strength, power, and " +
-                "conditioning through structured exercise programs.");
+//        this.setTrainerDescription("Focuses on improving overall strength, power, and " +
+//                "conditioning through structured exercise programs.");
 
 
         //this.setTypeOfTrainer("Strength and Conditioning Coach");
