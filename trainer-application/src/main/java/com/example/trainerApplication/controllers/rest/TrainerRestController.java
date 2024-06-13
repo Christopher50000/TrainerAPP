@@ -6,6 +6,7 @@ import com.example.trainerApplication.models.entities.PersonalTrainer;
 import com.example.trainerApplication.models.entities.Trainer;
 import com.example.trainerApplication.models.entities.TrainerEntity;
 import com.example.trainerApplication.services.TrainerService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,15 @@ public class TrainerRestController {
      */
     @GetMapping("trainer/{id}")
     public ResponseEntity<TrainerEntity> getTrainerById(@PathVariable long id) {
-        return new ResponseEntity<>(trainerService.getTrainerById(id), HttpStatus.FOUND);
+
+        try {
+            TrainerEntity trainer = trainerService.getTrainerById(id);
+            return ResponseEntity.ok(trainer); // Return 200 OK with trainer entity
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);// Return 404 if trainer not found
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Return 500 for other exceptions
+        }
     }
 
 
@@ -63,8 +72,11 @@ public class TrainerRestController {
             return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
         } catch (Exception e) {
 
+            System.out.println(e.getMessage());
+
             System.out.println("HI");
             // Handle exceptions, such as validation errors or database errors
+            // need to create an advice controller to handle errors
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

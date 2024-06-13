@@ -6,6 +6,7 @@ import com.example.trainerApplication.models.entities.TrainerEntity;
 
 import com.example.trainerApplication.models.entityFactories.TrainerFactory;
 import com.example.trainerApplication.repositories.TrainerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,9 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity getTrainerById(long id)
     {
-       Optional<TrainerEntity> trainerById= trainerRepository.findById(id);
+        TrainerEntity trainerById= trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found by the id of " + id));
 
-       return trainerById.get();
+        return  trainerById;
     }
 
     @Override
