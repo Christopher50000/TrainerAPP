@@ -32,6 +32,7 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity getTrainerById(long id)
     {
+
         TrainerEntity trainerById= trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found by the id of " + id));
 
         return  trainerById;

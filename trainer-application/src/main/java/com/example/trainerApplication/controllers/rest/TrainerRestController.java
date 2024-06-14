@@ -29,15 +29,16 @@ public class TrainerRestController {
      */
     @GetMapping("trainer/{id}")
     public ResponseEntity<TrainerEntity> getTrainerById(@PathVariable long id) {
+        System.out.println(id);
 
-        try {
-            TrainerEntity trainer = trainerService.getTrainerById(id);
-            return ResponseEntity.ok(trainer); // Return 200 OK with trainer entity
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);// Return 404 if trainer not found
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Return 500 for other exceptions
+        if(id<=0)
+        {
+             throw new IllegalArgumentException("Trainer ID cannot be zero or less than zero");
         }
+            TrainerEntity trainer = trainerService.getTrainerById(id);
+
+            return ResponseEntity.ok(trainer); // Return 200 OK with trainer entity
+
     }
 
 
@@ -62,7 +63,7 @@ public class TrainerRestController {
      * @return ResponseEntitu as a JSON Object for the TrainerEntitu object
      */
     @PostMapping("/createTrainer")
-    public ResponseEntity<TrainerEntity> createTrainer(@RequestBody TrainerRequest trainerRequest) {
+    public ResponseEntity<?> createTrainer(@RequestBody TrainerRequest trainerRequest) {
 
         //Return to this issue later where we cannot deserialize TrainerEntity due to abstraction may consider using
         // a simplier way of doing this , for some reason attempts failed each time !!!!!!
@@ -77,7 +78,7 @@ public class TrainerRestController {
             System.out.println("HI");
             // Handle exceptions, such as validation errors or database errors
             // need to create an advice controller to handle errors
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
