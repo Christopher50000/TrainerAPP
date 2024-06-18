@@ -12,7 +12,11 @@ public interface TrainerService {
 
     TrainerEntity getTrainerById(long id);
 
+    List<TrainerEntity> getTrainersByFirstName(String first_name);
+
     List<TrainerEntity> getAllTrainers();
+
+
 
     TrainerEntity updateTrainer(long id, TrainerEntity trainer);
 

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name="Strength And Conditioning Coaches")
 public class StrengthAndConditioningCoach extends TrainerEntity {
-
     public StrengthAndConditioningCoach(String fname,String lname)
     {
 

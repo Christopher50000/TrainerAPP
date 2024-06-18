@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class TrainerRestController {
-
+  // add loggers next 
     @Autowired
     TrainerService trainerService;
 
@@ -48,10 +48,14 @@ public class TrainerRestController {
      *           Note: if you're searching or filtering a group of resources (like searching for users by name) RequestParam is appropriate
      * @return a String value of the id
      */
-    @GetMapping("trainerReq")
-    public String getTrainersByNameQueryParam(@RequestParam long id) {   // for some reason does not want to return values less than 100
-        System.out.println(id);
-        return String.valueOf(id);
+    @GetMapping("trainers/search/byFirstName")
+    public ResponseEntity<List<TrainerEntity>> getTrainersByFirstName(@RequestParam String firstname) {   // for some reason does not want to return values less than 100
+
+        List<TrainerEntity> TrainersByLastName= trainerService.getTrainersByFirstName(firstname);
+
+
+        return ResponseEntity.ok(TrainersByLastName);
+
     }
 
 
@@ -63,23 +67,14 @@ public class TrainerRestController {
      * @return ResponseEntitu as a JSON Object for the TrainerEntitu object
      */
     @PostMapping("/createTrainer")
-    public ResponseEntity<?> createTrainer(@RequestBody TrainerRequest trainerRequest) {
+    public ResponseEntity<TrainerEntity> createTrainer(@RequestBody TrainerRequest trainerRequest) {
 
         //Return to this issue later where we cannot deserialize TrainerEntity due to abstraction may consider using
         // a simplier way of doing this , for some reason attempts failed each time !!!!!!
-        try {
-            TrainerEntity createdTrainer = trainerService.createTrainer(trainerRequest);
-            System.out.println(createdTrainer);
-            return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
-        } catch (Exception e) {
+        TrainerEntity createdTrainer = trainerService.createTrainer(trainerRequest);
+        System.out.println(createdTrainer);
+        return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
 
-            System.out.println(e.getMessage());
-
-            System.out.println("HI");
-            // Handle exceptions, such as validation errors or database errors
-            // need to create an advice controller to handle errors
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/trainers")

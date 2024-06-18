@@ -19,35 +19,43 @@ public class TrainerServiceImpl implements TrainerService {
     private TrainerRepository trainerRepository;
 
 
-
     @Override
     public TrainerEntity createTrainer(TrainerRequest trainerRequest) {
 
-        TrainerFactory trainerFactory= new TrainerFactory();
+        TrainerFactory trainerFactory = new TrainerFactory();
 
-        TrainerEntity trainerCreated= trainerFactory.create(trainerRequest);
+        TrainerEntity trainerCreated = trainerFactory.create(trainerRequest);
         return trainerRepository.save(trainerCreated);
     }
 
     @Override
-    public TrainerEntity getTrainerById(long id)
-    {
+    public TrainerEntity getTrainerById(long id) {
 
-        TrainerEntity trainerById= trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found by the id of " + id));
+        TrainerEntity trainerById = trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found by the id of " + id));
 
-        return  trainerById;
+        return trainerById;
+    }
+
+    @Override
+    public List<TrainerEntity> getTrainersByFirstName(String firstname) {
+
+        List<TrainerEntity> TrainersByFirstName = trainerRepository.findByFirstName(firstname);
+        CheckForEmptyTrainerList(TrainersByFirstName);
+        return TrainersByFirstName;
     }
 
     @Override
     public List<TrainerEntity> getAllTrainers() {
-        return trainerRepository.findAll();
+        List<TrainerEntity> allTrainers= trainerRepository.findAll();
+        CheckForEmptyTrainerList(allTrainers);
+        return allTrainers;
     }
 
     @Override
     public TrainerEntity updateTrainer(long id, TrainerEntity trainer) {
 
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
-        TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(()-> new RuntimeException("Trainer not found"));
+        TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainer not found"));
 
         trainerEntity.setFirstName(trainer.getFirstName());
         trainerEntity.setLastName(trainer.getLastName());
@@ -64,13 +72,11 @@ public class TrainerServiceImpl implements TrainerService {
     public void deleteTrainer(long id) {
 
         //wanted to Practice Optional
-        Optional<TrainerEntity> trainerEntity= trainerRepository.findById(id);
+        Optional<TrainerEntity> trainerEntity = trainerRepository.findById(id);
 
-        if (trainerEntity.isEmpty())
-        {
+        if (trainerEntity.isEmpty()) {
             throw new RuntimeException("Trainer Not Found");
-        }
-        else if (trainerEntity.isPresent()) {
+        } else if (trainerEntity.isPresent()) {
 
             System.out.println(trainerEntity.get());
 
@@ -79,16 +85,13 @@ public class TrainerServiceImpl implements TrainerService {
 
     }
 
-//    private void setTrainerType(TrainerEntity trainer)
-//    {
-//
-//
-//       TrainerType found = trainerTypeRepository.findBy()
-//
-//        // Save the TrainerEntity with the newly created TrainerType
-//
-//
-//    }
+    private void CheckForEmptyTrainerList(List<TrainerEntity> TrainerList) throws EntityNotFoundException {
+        if (TrainerList.isEmpty()) {
+            throw new EntityNotFoundException("No Trainers Found");
+        }
 
-
+    }
 }
+
+
+

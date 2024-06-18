@@ -26,6 +26,8 @@ public abstract class TrainerEntity implements Trainer, Serializable {
     @Column(name="last_name")
     private String lastName;
 
+
+
 //    @Transient // FIELD DOES NOT PERSIST IN DB
 //    private String trainerType;
 //
