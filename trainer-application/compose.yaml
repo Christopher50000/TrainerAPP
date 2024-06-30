@@ -5,5 +5,20 @@ services:
       - 'POSTGRES_DB=mydatabase'
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
+#    volumes:
+#    #for some reason need to run this manually within the postgres docker using 'docker-compose exec postgres bash  "
+#      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
     ports:
-      - '5432'
+      - '5433:5432'
+
+#    volumes:
+#     - './sqlFiles:/docker-entrypoint-initdb.d' make sure you do docker-compose down then up -d to restart container
+  # also make sure that you check the the logs of your instance by using docker-compose logs db
+  #5433 port on host is mapped to 5432
+#    inside the docker container where
+#    PostgresSQL is running. This allows access to PostgreSQL
+#  from the host machine using port 5433
+#  The first 5433 represents the port on your host machine.
+#  The second 5432 represents the port inside the Docker container where PostgreSQL is running.
+#  So, any traffic sent to port 5433 on your host machine will be forwarded to port 5432 inside
+#  the Docker container, where PostgreSQL is listening.

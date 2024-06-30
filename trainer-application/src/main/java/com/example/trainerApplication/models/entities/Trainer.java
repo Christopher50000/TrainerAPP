@@ -1,4 +1,4 @@
-package com.example.trainerApplication.models;
+package com.example.trainerApplication.models.entities;
 
 public interface Trainer {
 
