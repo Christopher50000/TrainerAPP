@@ -38,7 +38,7 @@ public abstract class TrainerEntity implements Trainer, Serializable {
 //    public void setDiscriminator() {
 //        this.trainerType = this.getClass().getAnnotation(DiscriminatorValue.class).value();
 //    }
-
+//
 
 
     public TrainerEntity(String firstName,String lastName) {
