@@ -15,6 +15,7 @@ import java.io.Serializable;
 @DiscriminatorColumn(name = "trainer_type", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
 public abstract class TrainerEntity implements Trainer, Serializable {
 
+    // SOMEHOW WE NEED TO GET THE RESPONSE OF ONLY a certain type of trainer
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,7 +31,7 @@ public abstract class TrainerEntity implements Trainer, Serializable {
 
 //    @Transient // FIELD DOES NOT PERSIST IN DB
 //    private String trainerType;
-//
+
 ////    @PostLoad to set the value of the transient field from the discriminator column.
 //    // USED TO CUSTOMIZE LOGIC SUCH AS INTILAIZING NONPERSISTENT FIELDS  OR PERFORMING CALCULATIONS
 //    @PostLoad

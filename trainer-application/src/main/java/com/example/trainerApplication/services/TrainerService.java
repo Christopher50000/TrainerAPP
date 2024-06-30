@@ -16,6 +16,9 @@ public interface TrainerService {
 
     List<TrainerEntity> getAllTrainers();
 
+    List<TrainerEntity> getAllTrainersByType(String TrainerType);
+
+
 
 
     TrainerEntity updateTrainer(long id, TrainerEntity trainer);
