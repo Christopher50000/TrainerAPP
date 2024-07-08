@@ -15,6 +15,9 @@ public interface TrainerRepository extends JpaRepository<TrainerEntity, Long>
 {
     List<TrainerEntity> findByFirstName(String firstname);
 
+    TrainerEntity findByFirstNameAndLastName(String firstname,String lastname);
+
+
 }
 
 

@@ -1,0 +1,4 @@
+
+
+This link helped me with finding Query methods:
+https://docs.spring.io/spring-data/jpa/reference/jpa/getting-started.html

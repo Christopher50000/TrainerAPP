@@ -8,7 +8,9 @@ import com.example.trainerApplication.models.entities.TrainerEntity;
 import com.example.trainerApplication.models.entityFactories.TrainerFactory;
 import com.example.trainerApplication.repositories.TrainerRepository;
 import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service("TrainerService")
 public class TrainerServiceImpl implements TrainerService {
     @Autowired
@@ -26,10 +28,18 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity createTrainer(TrainerRequest trainerRequest) {
 
+        log.debug("Creating Trainer {}{} with specialization in {}", trainerRequest.getFirst_name(), trainerRequest.getLast_name(), trainerRequest.getTrainerType());
+        //Consider adding emailaddress for uniqueness!!!! For now this will work but will need to make sure to use hashcode and .equals to make entities unqiue and not added if they have the same first middle and last
+         Optional<TrainerEntity> existingTrainer=Optional.ofNullable(trainerRepository.findByFirstNameAndLastName(trainerRequest.first_name, trainerRequest.last_name));
+
+         if(existingTrainer.isPresent())
+         {
+             throw new EntityExistsException("Trainer already Exists");
+         }
         TrainerFactory trainerFactory = new TrainerFactory();
 
         TrainerEntity trainerCreated = trainerFactory.create(trainerRequest);
-        // Will need to add someway to create a check if a trainer already exists
+
         return trainerRepository.save(trainerCreated);
     }
 
