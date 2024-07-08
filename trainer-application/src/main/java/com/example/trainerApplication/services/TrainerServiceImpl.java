@@ -89,17 +89,12 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity updateTrainer(long id, TrainerEntity trainer) {
 
+        // updateTrainer should update fields
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
         TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainer not found"));
 
         trainerEntity.setFirstName(trainer.getFirstName());
         trainerEntity.setLastName(trainer.getLastName());
-
-        //Note: May need to set up some sort of condiition so that if the type of trainer is set a default value is set
-        // for the Trainer Description
-//        System.out.println(trainerEntity.getTrainerType());
-//        trainerEntity.setTrainerType(trainer.getTrainerType());
-
         return trainerRepository.save(trainerEntity);
     }
 
@@ -107,15 +102,12 @@ public class TrainerServiceImpl implements TrainerService {
     public void deleteTrainer(long id) {
 
         //wanted to Practice Optional
-        Optional<TrainerEntity> trainerEntity = trainerRepository.findById(id);
+        TrainerEntity trainerEntity = getTrainerById(id);
+        log.debug("Trainer:{} {} with specialization: {} has been deleted",trainerEntity.getFirstName(),trainerEntity.getLastName(),trainerEntity.getClass().getAnnotation(DiscriminatorValue.class));
+        trainerRepository.deleteById(id);
 
-        if (trainerEntity.isEmpty()) {
-            throw new RuntimeException("Trainer Not Found");
-        } else if (trainerEntity.isPresent()) {
 
-            System.out.println(trainerEntity.get());
 
-        }
 
 
     }
