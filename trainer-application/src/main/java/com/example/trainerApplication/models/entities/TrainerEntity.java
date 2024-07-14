@@ -51,6 +51,10 @@ public abstract class TrainerEntity implements Trainer, Serializable {
     }
 
 
+
+
+
+
     // Need to create .equals and .hashcode to prevent already created possibly ?
     // or use that in the controller or realy service
 }

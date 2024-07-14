@@ -10,6 +10,9 @@ public interface TrainerService {
 
     TrainerEntity createTrainer(TrainerRequest trainerRequest);
 
+    TrainerEntity updateTrainerType(long id, TrainerRequest trainerRequest);
+
+
     TrainerEntity getTrainerById(long id);
 
     List<TrainerEntity> getTrainersByFirstName(String first_name);
@@ -17,11 +20,6 @@ public interface TrainerService {
     List<TrainerEntity> getAllTrainers();
 
     List<TrainerEntity> getAllTrainersByType(String TrainerType);
-
-
-
-
-    TrainerEntity updateTrainer(long id, TrainerEntity trainer);
 
 
     void deleteTrainer(long id);

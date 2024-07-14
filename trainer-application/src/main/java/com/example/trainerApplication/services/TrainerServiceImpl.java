@@ -9,6 +9,7 @@ import com.example.trainerApplication.models.entityFactories.TrainerFactory;
 import com.example.trainerApplication.repositories.TrainerRepository;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity createTrainer(TrainerRequest trainerRequest) {
 
-        log.debug("Creating Trainer {}{} with specialization in {}", trainerRequest.getFirst_name(), trainerRequest.getLast_name(), trainerRequest.getTrainerType());
+        log.debug("Creating Trainer {} {} with specialization in {}", trainerRequest.getFirst_name(), trainerRequest.getLast_name(), trainerRequest.getTrainerType());
         //Consider adding emailaddress for uniqueness!!!! For now this will work but will need to make sure to use hashcode and .equals to make entities unqiue and not added if they have the same first middle and last
          Optional<TrainerEntity> existingTrainer=Optional.ofNullable(trainerRepository.findByFirstNameAndLastName(trainerRequest.first_name, trainerRequest.last_name));
 
@@ -77,7 +78,7 @@ public class TrainerServiceImpl implements TrainerService {
 
 
         List<TrainerEntity> allTrainersByType= trainerRepository.findAll()
-                .stream().filter(trainer->trainer.getClass().getAnnotation(DiscriminatorValue.class).value().equals(TrainerType)).
+                .stream().filter(trainer->getTrainerType(trainer).equals(TrainerType)).
                 toList();
 
         CheckForEmptyTrainerList(allTrainersByType);
@@ -87,15 +88,21 @@ public class TrainerServiceImpl implements TrainerService {
     }
 
     @Override
-    public TrainerEntity updateTrainer(long id, TrainerEntity trainer) {
+    public TrainerEntity updateTrainerType(long id, TrainerRequest trainerRequest) {
 
         // updateTrainer should update fields
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
         TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainer not found"));
 
-        trainerEntity.setFirstName(trainer.getFirstName());
-        trainerEntity.setLastName(trainer.getLastName());
-        return trainerRepository.save(trainerEntity);
+        checkSpecializationChange(trainerEntity,trainerRequest.getTrainerType());
+
+        //long currentId= trainerEntity.getId();
+
+        //deleteTrainer(id);
+//        TrainerFactory TrainerFactory= new TrainerFactory();
+//        TrainerEntity updatedTrainer=TrainerFactory.create(trainerRequest);
+//        trainerRepository.updateTrainerType(currentId,updatedTrainer.getClass());
+//        return trainerRepository.findById();
     }
 
     @Override
@@ -117,6 +124,18 @@ public class TrainerServiceImpl implements TrainerService {
             throw new EntityNotFoundException("No Trainers Found");
         }
 
+    }
+
+    private void checkSpecializationChange(TrainerEntity trainer,String specialization)
+    {
+        if (getTrainerType(trainer).equals(specialization))
+        {
+            throw new EntityExistsException("The specialization for the trainer " + trainer.getFirstName() +" "+trainer.getLastName()+ "is already " + specialization);
+        }
+    }
+    public String getTrainerType(TrainerEntity trainer)
+    {
+        return trainer.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
 }
 

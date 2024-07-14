@@ -7,6 +7,7 @@ import com.example.trainerApplication.models.entities.Trainer;
 import com.example.trainerApplication.models.entities.TrainerEntity;
 import com.example.trainerApplication.services.TrainerService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Slf4j
 @RestController
 public class TrainerRestController {
   // add loggers next 
@@ -58,6 +59,15 @@ public class TrainerRestController {
         System.out.println(createdTrainer);
         return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
 
+    }
+
+    @PostMapping("/updateTrainer/{id}")
+    public ResponseEntity<TrainerEntity> updateTrainer(@PathVariable long id, @RequestBody TrainerRequest trainerRequest)
+    {
+        TrainerEntity updatedTrainer= trainerService.updateTrainerType(id,trainerRequest);
+        log.debug("Updated Trainer {} {} with specialization in {}", updatedTrainer.getFirstName(),updatedTrainer.getLastName(),trainerRequest.getTrainerType());
+
+        return new ResponseEntity<>(updatedTrainer, HttpStatus.OK);
     }
 
     @GetMapping("/trainers")
