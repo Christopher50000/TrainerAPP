@@ -1,6 +1,8 @@
 package com.example.trainerApplication.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import java.io.Serializable;
 //@MappedSuperclass // this will create a table per sub class with similar fields will consider for later
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "trainer_type", discriminatorType = DiscriminatorType.STRING) // may need to get rid of this
+//@JsonPropertyOrder(alphabetic = true) // Good to use to organize my JSON Objects values
 public abstract class TrainerEntity implements Trainer, Serializable {
 
     // SOMEHOW WE NEED TO GET THE RESPONSE OF ONLY a certain type of trainer

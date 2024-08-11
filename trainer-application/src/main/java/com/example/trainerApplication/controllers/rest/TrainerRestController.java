@@ -61,10 +61,10 @@ public class TrainerRestController {
 
     }
 
-    @PostMapping("/updateTrainer/{id}")
-    public ResponseEntity<TrainerEntity> updateTrainer(@PathVariable long id, @RequestBody TrainerRequest trainerRequest)
+    @PostMapping("/updateTrainerName/{id}")
+    public ResponseEntity<TrainerEntity> updateTrainerName(@PathVariable long id, @RequestBody TrainerRequest trainerRequest)
     {
-        TrainerEntity updatedTrainer= trainerService.updateTrainerType(id,trainerRequest);
+        TrainerEntity updatedTrainer= trainerService.updateTrainerName(id,trainerRequest);
         log.debug("Updated Trainer {} {} with specialization in {}", updatedTrainer.getFirstName(),updatedTrainer.getLastName(),trainerRequest.getTrainerType());
 
         return new ResponseEntity<>(updatedTrainer, HttpStatus.OK);

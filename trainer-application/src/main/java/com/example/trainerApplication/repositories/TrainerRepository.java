@@ -22,6 +22,7 @@ public interface TrainerRepository extends JpaRepository<TrainerEntity, Long>
     TrainerEntity findByFirstNameAndLastName(String firstname,String lastname);
 
 
+
 //    // Needed to update the type of trainer
 //    //The updateTrainerType method in TrainerRepository uses a JPQL UPDATE query to set the new class
 //    // (t.class) for the TrainerEntity with the specified ID (t.id).

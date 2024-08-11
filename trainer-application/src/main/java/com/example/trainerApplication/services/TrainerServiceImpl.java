@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -87,22 +88,30 @@ public class TrainerServiceImpl implements TrainerService {
 
     }
 
+
+    // will need to somehow add functionalility to update the trainer type
     @Override
-    public TrainerEntity updateTrainerType(long id, TrainerRequest trainerRequest) {
+    @Transactional
+    public TrainerEntity updateTrainerName(long id, TrainerRequest trainerRequest) {
 
         // updateTrainer should update fields
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
-        TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new RuntimeException("Trainer not found"));
+        TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found"));
+
 
         checkSpecializationChange(trainerEntity,trainerRequest.getTrainerType());
 
+        trainerEntity.setFirstName(trainerRequest.getFirst_name());
+        trainerEntity.setLastName(trainerRequest.getLast_name());
+
         //long currentId= trainerEntity.getId();
 
-        //deleteTrainer(id);
-//        TrainerFactory TrainerFactory= new TrainerFactory();
-//        TrainerEntity updatedTrainer=TrainerFactory.create(trainerRequest);
-//        trainerRepository.updateTrainerType(currentId,updatedTrainer.getClass());
-//        return trainerRepository.findById();
+
+       // TrainerFactory TrainerFactory= new TrainerFactory();
+       // TrainerEntity updatedTrainer=TrainerFactory.create(trainerRequest);
+       // updatedTrainer.setId(currentId);
+
+        return trainerRepository.save(trainerEntity);
     }
 
     @Override

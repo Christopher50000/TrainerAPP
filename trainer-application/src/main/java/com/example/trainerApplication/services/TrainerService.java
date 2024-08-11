@@ -10,7 +10,7 @@ public interface TrainerService {
 
     TrainerEntity createTrainer(TrainerRequest trainerRequest);
 
-    TrainerEntity updateTrainerType(long id, TrainerRequest trainerRequest);
+    TrainerEntity updateTrainerName(long id, TrainerRequest trainerRequest);
 
 
     TrainerEntity getTrainerById(long id);
