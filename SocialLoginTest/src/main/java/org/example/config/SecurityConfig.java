@@ -21,8 +21,9 @@ public class SecurityConfig {
                     auth.requestMatchers("/").permitAll(); //Permit everyone to go on that page
                     auth.anyRequest().authenticated(); // any other Request they have to be authenticated
                 })
-                .oauth2Client((withDefaults())) // we need to go into application .properties to authorize what clients we are going to support
+                .oauth2Login(withDefaults())
                 .formLogin(withDefaults())
                 .build();
+        // we need to go into application .properties to authorize what clients we are going to support
     }
 }
