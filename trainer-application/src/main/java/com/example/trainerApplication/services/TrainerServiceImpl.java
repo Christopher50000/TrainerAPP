@@ -2,14 +2,12 @@ package com.example.trainerApplication.services;
 
 
 import com.example.trainerApplication.models.Request.TrainerRequest;
-import com.example.trainerApplication.models.entities.Trainer;
 import com.example.trainerApplication.models.entities.TrainerEntity;
 
 import com.example.trainerApplication.models.entityFactories.TrainerFactory;
 import com.example.trainerApplication.repositories.TrainerRepository;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 @Slf4j
 @Service("TrainerService")
 public class TrainerServiceImpl implements TrainerService {

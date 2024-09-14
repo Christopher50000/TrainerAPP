@@ -1,8 +1,6 @@
 package com.example.trainerApplication.models.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

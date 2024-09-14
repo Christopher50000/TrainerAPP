@@ -17,6 +17,12 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
+
+		<!--
+		Actuator brings production-ready features to our application.
+		Monitoring our app, gathering metrics, and understanding traffic or the state of our database becomes trivial with this dependency.
+		The main benefit of this library is that we can get production-grade tools without actually having to implement these features ourselves.
+         -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -83,7 +89,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
 	</dependencies>
+
 
 	<build>
 		<plugins>

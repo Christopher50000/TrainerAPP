@@ -2,11 +2,8 @@ package com.example.trainerApplication.controllers.rest;
 
 
 import com.example.trainerApplication.models.Request.TrainerRequest;
-import com.example.trainerApplication.models.entities.PersonalTrainer;
-import com.example.trainerApplication.models.entities.Trainer;
 import com.example.trainerApplication.models.entities.TrainerEntity;
 import com.example.trainerApplication.services.TrainerService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 @Slf4j
 @RestController
 public class TrainerRestController {

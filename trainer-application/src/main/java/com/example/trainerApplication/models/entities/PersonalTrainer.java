@@ -3,8 +3,6 @@ package com.example.trainerApplication.models.entities;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
-import javax.naming.Name;
-
 
 @Entity
 @DiscriminatorValue("Personal Trainer")

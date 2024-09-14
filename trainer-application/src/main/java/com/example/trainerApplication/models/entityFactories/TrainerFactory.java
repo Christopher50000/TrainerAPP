@@ -6,7 +6,6 @@ import com.example.trainerApplication.models.entities.StrengthAndConditioningCoa
 import com.example.trainerApplication.models.entities.TrainerEntity;
 
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @NoArgsConstructor
