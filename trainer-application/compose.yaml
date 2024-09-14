@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: Trainers
     image: 'postgres:latest'
     environment:
       - 'POSTGRES_DB=Trainers'
