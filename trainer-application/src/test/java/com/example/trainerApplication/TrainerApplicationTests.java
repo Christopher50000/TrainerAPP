@@ -10,4 +10,10 @@ class TrainerApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void example()
+	{
+		System.out.print("AAA");
+	}
+
 }
