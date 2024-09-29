@@ -15,49 +15,31 @@ import java.util.List;
 @Slf4j
 @RestController
 public class TrainerRestController {
-  // add loggers next 
     @Autowired
     TrainerService trainerService;
 
     /**
-     * @param id This method us to retrieve a Trainer by ID, currently just returns the id number since Db has not been set up yet
-     *           Note: to retrieve a single resource (like a single user), @PathVariable is appropriate.
-     * @return the long value by id
-     */
-    @GetMapping("trainer/{id}")
-    public ResponseEntity<TrainerEntity> getTrainerById(@PathVariable long id) {
-        System.out.println(id);
-
-        if(id<=0)
-        {
-             throw new IllegalArgumentException("Trainer ID cannot be zero or less than zero");
-        }
-            TrainerEntity trainer = trainerService.getTrainerById(id);
-
-            return ResponseEntity.ok(trainer); // Return 200 OK with trainer entity
-
-    }
-
-
-    /**
-     * @param trainerRequest This method is called when we send a post method to the /createTrainer with VALID input within the PostRequest
-     *                mainly just for the name. We also have simple Error handling here but will implement a better way to handle later.
-     *                If the TrainerRequest is created we are prompted with Created, if not we are prompted with an Internal_Server_Error
-     *                , This also acts as a DTO
+     * Method used to Create a Trainer within the trainer database
+     * @param trainerRequest acts as a DTO for creating a trainer
+     *
      * @return ResponseEntitu as a JSON Object for the TrainerEntity object
      */
     @PostMapping("/createTrainer")
     public ResponseEntity<TrainerEntity> createTrainer(@RequestBody TrainerRequest trainerRequest) {
 
-        //Return to this issue later where we cannot deserialize TrainerEntity due to abstraction may consider using
-        // a simplier way of doing this , for some reason attempts failed each time !!!!!!
         TrainerEntity createdTrainer = trainerService.createTrainer(trainerRequest);
-        System.out.println(createdTrainer);
+        log.debug("Trainer was created with the following parameters {}",createdTrainer.toString());
         return new ResponseEntity<>(createdTrainer, HttpStatus.CREATED);
 
     }
 
-    @PostMapping("/updateTrainerName/{id}")
+    /**
+     * Updates the trainer by
+     * @param id
+     * @param trainerRequest
+     * @return
+     */
+    @PutMapping("/updateTrainerName/{id}")
     public ResponseEntity<TrainerEntity> updateTrainerName(@PathVariable long id, @RequestBody TrainerRequest trainerRequest)
     {
         TrainerEntity updatedTrainer= trainerService.updateTrainerName(id,trainerRequest);
@@ -66,10 +48,43 @@ public class TrainerRestController {
         return new ResponseEntity<>(updatedTrainer, HttpStatus.OK);
     }
 
+    @PutMapping("/updateTrainerType/{id}/{trainerType}")
+    public ResponseEntity<TrainerEntity> updateTrainerType(@PathVariable long id, @PathVariable String trainerType)
+    {
+        TrainerEntity updatedTrainer= trainerService.updateTrainerType(id,trainerType);
+        log.debug("Updated Trainer trainerType");
+
+        return new ResponseEntity<>(updatedTrainer, HttpStatus.OK);
+    }
+
+
+    /**
+     * @param id This method us to retrieve a Trainer by ID, currently just returns the id number since Db has not been set up yet
+     *           Note: to retrieve a single resource (like a single user), @PathVariable is appropriate. In addition if
+     *           trainer is not found an error will be thrown and the GlobalController will return an Entity not found message
+     * @return the long value by id
+     */
+    @GetMapping("trainer/{id}")
+    public ResponseEntity<TrainerEntity> getTrainerById(@PathVariable long id) {
+        if(id<=0)
+        {
+            throw new IllegalArgumentException("Trainer ID cannot be zero or less than zero");
+        }
+
+        log.debug("Looking up trainer by id {}",id);
+
+        TrainerEntity trainer = trainerService.getTrainerById(id);
+
+        log.debug("Trainer Found! with the following information: {} was found",trainer.toString());
+        return ResponseEntity.ok(trainer);
+
+    }
+
+
     @GetMapping("/trainers")
     public ResponseEntity<List<TrainerEntity>> getAllTrainers() {
         List<TrainerEntity> trainers = trainerService.getAllTrainers();
-        System.out.println(trainers);
+        log.debug("Showing all trainer entities in trainer database ");
         return new ResponseEntity<>(trainers, HttpStatus.OK);
     }
 
@@ -92,9 +107,26 @@ public class TrainerRestController {
     @GetMapping("/trainers/search/byTrainerType")
     public ResponseEntity<List<TrainerEntity>> getAllTrainersByType(@RequestParam String trainerType)
     {
+        log.debug("Searching trainers by type");
         List<TrainerEntity> trainers = trainerService.getAllTrainersByType(trainerType);
-        System.out.println(trainers);
+
         return new ResponseEntity<>(trainers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("trainers/delete/{id}")
+    public ResponseEntity<Void> deleteTrainerById(@PathVariable long id)
+    {
+        trainerService.deleteTrainer(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("trainers/deleteAll")
+    public ResponseEntity<Void> deleteAllTrainers()
+    {
+        trainerService.deleteAllTrainers();
+        log.debug("All Trainer Entities have been deleted ");
+        return ResponseEntity.noContent().build();
     }
 }
 

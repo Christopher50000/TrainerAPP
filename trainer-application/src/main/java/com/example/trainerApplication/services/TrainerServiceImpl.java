@@ -85,8 +85,6 @@ public class TrainerServiceImpl implements TrainerService {
 
     }
 
-
-    // will need to somehow add functionalility to update the trainer type
     @Override
     @Transactional
     public TrainerEntity updateTrainerName(long id, TrainerRequest trainerRequest) {
@@ -95,35 +93,40 @@ public class TrainerServiceImpl implements TrainerService {
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
         TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found"));
 
-
-        checkSpecializationChange(trainerEntity,trainerRequest.getTrainerType());
-
         trainerEntity.setFirstName(trainerRequest.getFirst_name());
         trainerEntity.setLastName(trainerRequest.getLast_name());
-
-        //long currentId= trainerEntity.getId();
-
-
-       // TrainerFactory TrainerFactory= new TrainerFactory();
-       // TrainerEntity updatedTrainer=TrainerFactory.create(trainerRequest);
-       // updatedTrainer.setId(currentId);
 
         return trainerRepository.save(trainerEntity);
     }
 
     @Override
+    public TrainerEntity updateTrainerType(long id,String newTrainerType)
+    {
+        TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found"));
+
+        checkSpecializationChange(trainerEntity,newTrainerType);
+
+        trainerRepository.updateTrainerType(id,newTrainerType );
+
+        return trainerEntity;
+    }
+
+    @Override
     public void deleteTrainer(long id) {
 
-        //wanted to Practice Optional
         TrainerEntity trainerEntity = getTrainerById(id);
-        log.debug("Trainer:{} {} with specialization: {} has been deleted",trainerEntity.getFirstName(),trainerEntity.getLastName(),trainerEntity.getClass().getAnnotation(DiscriminatorValue.class));
+        log.debug("Trainer:{} {} with specialization: {} has been deleted",trainerEntity.getFirstName(),trainerEntity.getLastName(),getTrainerType(trainerEntity));
         trainerRepository.deleteById(id);
+    }
 
-
-
-
+    @Override
+    public  void deleteAllTrainers()
+    {
+        trainerRepository.deleteAll();
 
     }
+
+
 
     private void CheckForEmptyTrainerList(List<TrainerEntity> TrainerList) throws EntityNotFoundException {
         if (TrainerList.isEmpty()) {
@@ -139,6 +142,7 @@ public class TrainerServiceImpl implements TrainerService {
             throw new EntityExistsException("The specialization for the trainer " + trainer.getFirstName() +" "+trainer.getLastName()+ "is already " + specialization);
         }
     }
+
     public String getTrainerType(TrainerEntity trainer)
     {
         return trainer.getClass().getAnnotation(DiscriminatorValue.class).value();

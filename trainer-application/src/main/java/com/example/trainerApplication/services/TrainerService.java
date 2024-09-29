@@ -11,6 +11,7 @@ public interface TrainerService {
 
     TrainerEntity updateTrainerName(long id, TrainerRequest trainerRequest);
 
+    TrainerEntity updateTrainerType(long id, String newTrainerType);
 
     TrainerEntity getTrainerById(long id);
 
@@ -20,6 +21,7 @@ public interface TrainerService {
 
     List<TrainerEntity> getAllTrainersByType(String TrainerType);
 
-
     void deleteTrainer(long id);
+
+    void deleteAllTrainers();
 }
