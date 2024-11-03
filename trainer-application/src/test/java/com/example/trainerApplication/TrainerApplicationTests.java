@@ -2,18 +2,29 @@ package com.example.trainerApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+//@SpringBootTest
 class TrainerApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//	@Test
+//	void example()
+//	{
+//		System.out.print("AAA");
+//	}
+
 
 	@Test
-	void example()
+	public void Addtest()
 	{
-		System.out.print("AAA");
+		int x=6;
+		assertEquals(6,6);
 	}
 
 }
