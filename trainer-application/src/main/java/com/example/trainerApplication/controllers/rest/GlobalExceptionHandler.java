@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
 @ControllerAdvice
 @Slf4j
 
@@ -45,12 +47,26 @@ public class GlobalExceptionHandler{
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<String> handleNullException(MethodArgumentTypeMismatchException ex,WebRequest request) throws JsonProcessingException {
+        urlExceptionOutput(request);
+        String errorMessage = String.format("Invalid type for parameter '%s': expected '%s' but received '%s'",
+                ex.getName(), ex.getRequiredType().getSimpleName(), ex.getValue());
+        log.debug(errorMessage);
+        log.debug("MethodArgumentTypeMismatchException exception for {}",objectMapper.writeValueAsString(request.getParameterMap()));
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+
+
+
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> handleNullException(NullPointerException ex,WebRequest request) throws JsonProcessingException {
         urlExceptionOutput(request);
         log.debug("Null exception for {}",objectMapper.writeValueAsString(request.getParameterMap()));
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGlobalException(Exception ex, WebRequest request) throws JsonProcessingException {
