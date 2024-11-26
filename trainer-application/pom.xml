@@ -97,6 +97,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.7.0</version> <!-- Use the latest stable version -->
+			<scope>test</scope> <!-- Only for test scope -->
+		</dependency>
+
+
 	</dependencies>
 
 
