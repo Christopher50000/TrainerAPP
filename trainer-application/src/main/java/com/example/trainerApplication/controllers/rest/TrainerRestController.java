@@ -4,6 +4,7 @@ package com.example.trainerApplication.controllers.rest;
 import com.example.trainerApplication.models.Request.TrainerRequest;
 import com.example.trainerApplication.models.entities.TrainerEntity;
 import com.example.trainerApplication.services.TrainerService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/trainer-service")
 public class TrainerRestController {
     @Autowired
     TrainerService trainerService;
@@ -71,16 +73,16 @@ public class TrainerRestController {
      *           trainer is not found an error will be thrown and the GlobalController will return an Entity not found message
      * @return the long value by id
      */
-    @GetMapping("trainer/{id}")
+    @GetMapping("trainer/search/ById/{id}")
     public ResponseEntity<TrainerEntity> getTrainerById(@PathVariable long id) {
-        if(id<=0)
-        {
-            throw new IllegalArgumentException("Trainer ID cannot be zero or less than zero");
-        }
+
+
 
         log.debug("Looking up trainer by id {}",id);
 
         TrainerEntity trainer = trainerService.getTrainerById(id);
+
+
 
         log.debug("Trainer Found! with the following information: {} was found",trainer.toString());
         return ResponseEntity.ok(trainer);
