@@ -45,7 +45,13 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity getTrainerById(long id) {
 
+        if(id<=0)
+        {
+            throw new IllegalArgumentException("Trainer ID cannot be zero or less than zero");
+        }
         TrainerEntity trainerById = trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found by the id of " + id));
+
+
 
         return trainerById;
     }
@@ -130,7 +136,7 @@ public class TrainerServiceImpl implements TrainerService {
 
     private void CheckForEmptyTrainerList(List<TrainerEntity> TrainerList) throws EntityNotFoundException {
         if (TrainerList.isEmpty()) {
-            throw new EntityNotFoundException("No Trainers Found");
+            throw new EntityNotFoundException("No Trainers found");
         }
 
     }
