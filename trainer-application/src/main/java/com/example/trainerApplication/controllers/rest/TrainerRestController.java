@@ -7,6 +7,7 @@ import com.example.trainerApplication.services.TrainerService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/trainer-service")
+@CrossOrigin(origins = "${cors.allowed.origins}")
 public class TrainerRestController {
+
     @Autowired
     TrainerService trainerService;
 
