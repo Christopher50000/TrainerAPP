@@ -1,0 +1,5 @@
+Notes:
+
+Installing bootstrap for ease of creating frontend for the application, by using npm install bootstrap and also adding
+it within the styles of the angular json file in the front-end-trainer-application folder
+
