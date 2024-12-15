@@ -15,8 +15,8 @@ public class TrainerFactory {
 
     public TrainerEntity create(TrainerRequest trainerRequest)
     {
-        String first_name= trainerRequest.getFirst_name();
-        String last_name= trainerRequest.getLast_name();
+        String first_name= trainerRequest.getFirstName();
+        String last_name= trainerRequest.getLastName();
         String trainerType=trainerRequest.getTrainerType();
 
         return switch (trainerType) {

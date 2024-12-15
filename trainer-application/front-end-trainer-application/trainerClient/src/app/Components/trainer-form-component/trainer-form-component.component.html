@@ -1,0 +1,41 @@
+
+<!-- Reactive form-->
+<!-- formGroup: This directive is used to create a FormGroup instance. and to submit the form is the function onSubmit -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label for="firstName">First Name</label>
+  <!-- formControlName: This directive is used to bind the form control to the form group -->
+  <input type="text" id="firstName" formControlName="firstName">
+  <!-- if the form control is invalid and touched then show the error message -->
+  <div *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="error">
+    First name is required.
+  </div>
+  <label for="lastName">Last Name</label>
+  <input type="text" id="lastName" formControlName="lastName">
+  <div *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched" class="error">
+    Last name is
+  </div>
+
+
+  <!-- a simple for loop that goes over the trainer types and displays them as options in the dropdown ,
+  -->
+  <label for="trainerType">Trainer Type</label>
+  <select id="trainerType" formControlName="trainerType">
+    <option>Select Trainer Type</option>
+    <option *ngFor="let trainerType of trainerTypes" [value]="trainerType">{{trainerType}}</option>
+  </select>
+
+
+
+  <!-- disable the submit button if the form is invalid -->
+  <button type="submit" [disabled]="form.invalid">Submit</button>
+
+<!--ideas -->
+  <!-- consider grabbing the types of trainers from the backend >
+,Consider making a form array here for the places worked with the addresses , making a form group for each address, this will
+need an add button and remove button -->
+
+</form>
+
+
+
+

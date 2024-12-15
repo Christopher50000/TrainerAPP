@@ -27,9 +27,9 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerEntity createTrainer(TrainerRequest trainerRequest) {
 
-        log.debug("Creating Trainer {} {} with specialization in {}", trainerRequest.getFirst_name(), trainerRequest.getLast_name(), trainerRequest.getTrainerType());
+        log.debug("Creating Trainer {} {} with specialization in {}", trainerRequest.getFirstName(), trainerRequest.getLastName(), trainerRequest.getTrainerType());
         //Consider adding emailaddress for uniqueness!!!! For now this will work but will need to make sure to use hashcode and .equals to make entities unqiue and not added if they have the same first middle and last
-         Optional<TrainerEntity> existingTrainer=Optional.ofNullable(trainerRepository.findByFirstNameAndLastName(trainerRequest.first_name, trainerRequest.last_name));
+         Optional<TrainerEntity> existingTrainer=Optional.ofNullable(trainerRepository.findByFirstNameAndLastName(trainerRequest.getFirstName(), trainerRequest.getLastName()));
 
          if(existingTrainer.isPresent())
          {
@@ -99,8 +99,8 @@ public class TrainerServiceImpl implements TrainerService {
         //Note: findById returns Optional might need use an instance of Optional to avoid Null expection breaking application
         TrainerEntity trainerEntity = trainerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Trainer not found"));
 
-        trainerEntity.setFirstName(trainerRequest.getFirst_name());
-        trainerEntity.setLastName(trainerRequest.getLast_name());
+        trainerEntity.setFirstName(trainerRequest.getFirstName());
+        trainerEntity.setLastName(trainerRequest.getLastName());
 
         return trainerRepository.save(trainerEntity);
     }
